@@ -4,6 +4,7 @@ def import_objects(filelist)
   filelist.each do |path|
     object_hash = parse_file(path)
     DATABASE.insert(object_hash)
+  end
 end
 
 def parse_file(path)
@@ -23,7 +24,7 @@ def parse_file(path)
 
   # nationality (incl. birth/death dates)
 
-  
+
 
   ##### artork_details #####
 
