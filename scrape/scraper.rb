@@ -9,8 +9,17 @@ def object_url_list(baseurl)
 
   # Get all object works elements and return them as an array of urls
   parsed_html.css(".oe-drawer-list li").each do |link|
-    object_url_list << link.at("a @href")
+    url = link.at("a @href").to_s
+    # Only get list of objects
+    if url.include?("art-object-page")
+      object_url_list << url
+    end
   end
+
+  puts "#{object_url_list.count} objects to download."
+
+  # Discard first result for "all paintings"
+  object_url_list.slice!(0)
 
   return object_url_list
 end
@@ -18,5 +27,7 @@ end
 # Download all html to a file for later parsing
 def download_content(object_url, filename)
   raw_html = open(object_url, :read_timeout => 60)
-  File.open(filename, "w") { |file| file << raw_html }
+  puts object_url
+  puts filename
+  File.open(filename, "w") { |file| file.write(raw_html) }
 end

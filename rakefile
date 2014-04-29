@@ -1,5 +1,4 @@
 require "parallel"
-require "ruby-progressbar"
 load "scrape/scraper.rb"
 
 BASEURL = "http://www.nga.gov"
@@ -10,13 +9,12 @@ task :default => :retrieve
 task :retrieve => "scrape/html" do
   # Get all object links
   links = object_url_list("#{BASEURL}#{SYSCAT}")
+  puts links
   
   # Run load_file process for each file in parallel
-  prog_bar = ProgressBar.create(:title => "Files imported", :starting_at => 0, :total => links.count, :format => '%c |%b>>%i| %p%%') # => Create a progress bar
-
-  Parallel.map_with_index(links, :in_processes => 8, :finish => lambda { |item, i, result| prog_bar.increment }) do |object_url|
+  Parallel.map_with_index(links, :in_processes => 8) do |object_url, index|
     url = "#{BASEURL}#{object_url}"
-    filename = "scrape/html" + object_url.match(/\/content\/ngaweb\/Collection\/(.*)$/)[0]
+    filename = "scrape/html/#{index}.html"
     download_content(url, filename)
   end
 end
