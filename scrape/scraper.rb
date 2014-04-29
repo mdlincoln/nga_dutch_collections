@@ -16,6 +16,7 @@ def object_url_list(baseurl)
 end
 
 # Download all html to a file for later parsing
-def download_content(url)
-
+def download_content(object_url, filename)
+  raw_html = open(object_url, :read_timeout => 60)
+  File.open(filename, "w") { |file| file << raw_html }
 end
