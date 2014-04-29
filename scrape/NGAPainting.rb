@@ -1,7 +1,4 @@
 require "nokogiri"
-require "mongo"
-
-DATABASE = Mongo::MongoClient.new["arth"]["nga_dutch"]
 
 def import_objects(filelist)
   filelist.each do |path|
@@ -17,6 +14,54 @@ def parse_file(path)
   object_data = {}
 
   # Store key fields from HTML
+
+
+
+  ##### artist details #####
+
+  # artist
+
+  # nationality (incl. birth/death dates)
+
+  
+
+  ##### artork_details #####
+
+  # title
+
+  # created
+
+  # medium
+
+  # dimensions
+
+  # credit
+
+  # accession
+
+  # onview
+
+
+
+  ##### catalog entry #####
+
+  # overview
+
+  # entry
+
+  # inscription
+
+  # marks
+
+  # provenance
+
+  # history
+
+  # bibliography
+
+  # consvNotes
+
+
 
   # Return object_data hash
   return object_data
