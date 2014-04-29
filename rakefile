@@ -14,7 +14,7 @@ task :retrieve => "scrape/html" do
   # Run load_file process for each file in parallel
   Parallel.map_with_index(links, :in_processes => 8) do |object_url, index|
     url = "#{BASEURL}#{object_url}"
-    filename = "scrape/html/#{index}.html"
+    filename = "scrape/html/#{object_url.match(/(\d+)\.html/)[0]}"
     download_content(url, filename)
   end
 end
