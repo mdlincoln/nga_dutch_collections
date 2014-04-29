@@ -26,7 +26,7 @@ end
 
 # Download all html to a file for later parsing
 def download_content(object_url, filename)
-  raw_html = open(object_url, :read_timeout => 60)
+  raw_html = open(object_url, :read_timeout => 60).read
   puts object_url
   puts filename
   File.open(filename, "w") { |file| file.write(raw_html) }
