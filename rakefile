@@ -1,0 +1,12 @@
+require "parallel"
+load "scrape/scraper.rb"
+
+BASEURL = "http://www.nga.gov/content/ngaweb/research/online-editions/17th-century-dutch-paintings.html"
+
+task :default => :retrieve
+
+task :retrieve do
+  # Get all object links
+  links = object_url_list(BASEURL)
+  puts links
+end
