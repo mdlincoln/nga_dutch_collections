@@ -21,13 +21,18 @@ def parse_file(path)
 
   # artist
 
+  artist = parsed_html.at_css(".artist-details .artist").content
+  object_data[:artist] = artist
+
   # nationality (incl. birth/death dates)
+  nationality = parsed_html.at_css(".artist-details .nationality").content
+  object_data[:nationality] = nationality
 
-  
 
-  ##### artork_details #####
+  ##### artork details #####
 
   # title
+  title = parsed_html.at_css(".artwork-details" .title).content
 
   # created
 
