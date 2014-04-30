@@ -53,25 +53,25 @@ def parse_file(path)
   object_data[:medium] = medium
 
   # dimensions
-  dimensions = parsed_html.at_css(".artist-details .dimensions").content
+  dimensions = parsed_html.at_css(".artwork-details .dimensions").content
   object_data[:dimensions] = dimensions
 
   # credit
 
-  credit = parsed_html.at_css(".artist-details .credit").content
+  credit = parsed_html.at_css(".artwork-details .credit").content
   object_data[:credit] = credit
 
   # accession
 
-  accession = parsed_html.at_css(".artist-details .accession").content
+  accession = parsed_html.at_css(".artwork-details .accession").content
   object_data[:accession] = accession
 
   # onview
 
-  onview = parsed_html.at_css(".artist-details .onview").content
+  onview = parsed_html.at_css(".artwork-details .onview").content
   if onview == "On View"
     object_data[:onview] = true
-    location = parsed_html.at_css(".artist-details .onview @href").to_s
+    location = parsed_html.at_css(".artwork-details .onview @href").to_s
     object_data[:location] = location
   else
     object_data[:onview] = false
