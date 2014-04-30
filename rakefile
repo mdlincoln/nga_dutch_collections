@@ -2,6 +2,7 @@ require "parallel"
 require "JSON"
 load "scrape/scraper.rb"
 load "scrape/NGAPainting.rb"
+load "scrape/collection_to_csv.rb"
 
 BASEURL = "http://www.nga.gov"
 SYSCAT = "/content/ngaweb/research/online-editions/17th-century-dutch-paintings.html"
@@ -9,7 +10,7 @@ SYSCAT = "/content/ngaweb/research/online-editions/17th-century-dutch-paintings.
 HTMLFILES = FileList["scrape/html/*.html"]
 JSONFILES = HTMLFILES.ext(".json")
 
-task :default => [:retrieve, :convert]
+task :default => [:retrieve, :convert, :write]
 
 task :retrieve => "scrape/html" do
   # Get all object links
@@ -34,3 +35,7 @@ rule ".json" => ".html" do |t|
 end
 
 directory "scrape/html"
+
+task :write do
+  collection_to_csv(JSONFILES, "collection_data.csv")
+end
