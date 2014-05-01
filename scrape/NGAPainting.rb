@@ -1,5 +1,7 @@
 require "nokogiri"
 
+$genres = JSON.parse!(File.read("scrape/genres.json"))
+
 def import_objects(filelist)
   filelist.each do |path|
     object_hash = parse_file(path)
@@ -10,6 +12,14 @@ end
 # If any elements are empty, write "nil"
 class NilClass
   def content()
+    return nil
+  end
+end
+
+def get_genre(accession)
+  if $genres.key?(accession)
+    return $genres[accession]
+  else 
     return nil
   end
 end
@@ -121,7 +131,8 @@ def parse_file(path)
   consvNotes = parsed_html.at_css("#consvNotes").content
   object_data[:consvNotes] = consvNotes
 
-
+  # Add genre
+  object_data[:genre] = get_genre(accession)
 
   # Return object_data hash
   return object_data
