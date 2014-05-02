@@ -2,6 +2,8 @@ library("ggplot2")
 library("stringr")
 library("dplyr")
 
+akw <- 1973
+
 collection_data <- read.csv("../collection_data.csv", stringsAsFactors=FALSE)
 collection_data$medium <- as.factor(collection_data$medium)
 collection_data$artist <- as.factor(collection_data$artist)
@@ -22,11 +24,13 @@ acc_regex <- "([0-9]{4})[.]"
 collection_data$acc_date <- as.numeric(str_match(collection_data$accession, acc_regex)[,2])
 
 #### Collection set?
+collection_data$set <- "Other"
 collection_data$set[collection_data$acc_date == 1937] <- "Mellon"
 collection_data$set[collection_data$acc_date == 1942] <- "Widener"
-collection_data$set[collection_data$acc_date >= 1976] <- "Wheelock"
-collection_data$set[collection_data$acc_date == NA] <- "Other"
+collection_data$set[collection_data$acc_date >= akw] <- "Wheelock"
 collection_data$set <- as.factor(collection_data$set)
+collection_data$set <- factor(collection_data$set, levels=c("Mellon", "Widener", "Other", "Wheelock"))
+
 
 ##### extract room number #####
 room_regex <- "room=([[:alpha:]]-[0-9]{3}[-]?[[:alpha:]]?)"
@@ -40,23 +44,23 @@ collection_data %.% group_by(room) %.% mutate(area=height*width) %.% summarize(n
 
 # Creation date quantiles for pieces from the core collection (Mellon and Widener gifts)
 core_gift <- filter(collection_data, acc_date==1942 | acc_date==1937)
-core_quantile <- quantile(core_gift$creation_date, probs=seq(0,1,0.1), na.rm=TRUE)
+core_quantile <- quantile(core_gift$creation_date, probs=seq(0,1,0.05), na.rm=TRUE)
 
 # Creation date quantiles for pieces acquried during Arthur's tenure (1976-present)
-arthur_ptgs <- filter(collection_data, acc_date >= 1974)
-arthur_quantile <- quantile(arthur_ptgs$creation_date, probs=seq(0,1,0.1), na.rm=TRUE)
+arthur_ptgs <- filter(collection_data, acc_date >= akw)
+arthur_quantile <- quantile(arthur_ptgs$creation_date, probs=seq(0,1,0.05), na.rm=TRUE)
 
 svg("date_plot.svg", height=8, width=15)
-ggplot(collection_data, aes(x=acc_date, y=creation_date, color=medium)) +
-  geom_jitter(alpha=0.8, size=3) + 
-  scale_size(range=c(5,30)) +
+ggplot(collection_data, aes(x=acc_date, y=creation_date, color=set)) +
+  geom_point(alpha=1, size=3) + 
+  scale_color_brewer(type="qual", palette = 6) +
   annotate("pointrange", alpha=0.6, size=1.5, x=1950,
-           y=core_quantile["50%"], ymin=core_quantile["10%"], ymax=core_quantile["90%"]) +
-  annotate("text", label="Core\nCollection", x=1950, y=1670) +
-  geom_vline(xintercept=1974) +
+           y=core_quantile["50%"], ymin=core_quantile["5%"], ymax=core_quantile["95%"]) +
+  annotate("text", label="Core", x=1950, y=core_quantile["95%"]+3, angle=90, hjust=0) +
+  geom_vline(xintercept=akw) +
   annotate("pointrange", alpha=0.6, size=1.5, x=1985, 
-           y=arthur_quantile["50%"], ymin=arthur_quantile["10%"], ymax=arthur_quantile["90%"]) +
-  annotate("text", label="Arthur's\nAdditions", x=1985, y=1685) +
+           y=arthur_quantile["50%"], ymin=arthur_quantile["5%"], ymax=arthur_quantile["95%"]) +
+  annotate("text", label="Wheelock", x=1985, y=arthur_quantile["95%"]+3,angle=90,  hjust=0) +
   annotate("text", label="Mellon Collection", x=1937, y=1678 , angle=90, hjust=0) +
   annotate("text", label="Widener Collection", x=1942, y=1678 , angle=90, hjust=0)
 dev.off()
