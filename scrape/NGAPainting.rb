@@ -1,6 +1,7 @@
 require "nokogiri"
+require "yaml"
 
-$genres = JSON.parse!(File.read("scrape/genres.json"))
+$genres = YAML.load_file("scrape/genres.yaml")
 
 def import_objects(filelist)
   filelist.each do |path|
