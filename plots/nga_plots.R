@@ -46,12 +46,20 @@ core_quantile <- quantile(core_gift$creation_date, probs=seq(0,1,0.1), na.rm=TRU
 arthur_ptgs <- filter(collection_data, acc_date >= 1974)
 arthur_quantile <- quantile(arthur_ptgs$creation_date, probs=seq(0,1,0.1), na.rm=TRUE)
 
-ggplot(collection_data, aes(x=acc_date, y=creation_date, color=medium, size=height*width)) + 
-  geom_point(alpha=1, shape=22) + 
+svg("date_plot.svg", height=8, width=15)
+ggplot(collection_data, aes(x=acc_date, y=creation_date, color=medium)) +
+  geom_jitter(alpha=0.8, size=3) + 
   scale_size(range=c(5,30)) +
-  annotate("pointrange", alpha=0.2, ymin=core_quantile["10%"], ymax=core_quantile["90%"], xmin=1930, xmax=1974) +
+  annotate("pointrange", alpha=0.6, size=1.5, x=1950,
+           y=core_quantile["50%"], ymin=core_quantile["10%"], ymax=core_quantile["90%"]) +
+  annotate("text", label="Core\nCollection", x=1950, y=1670) +
   geom_vline(xintercept=1974) +
-  annotate("rect", alpha=0.2, ymin=arthur_quantile["10%"], ymax=arthur_quantile["90%"], xmin=1974, xmax=2014)
+  annotate("pointrange", alpha=0.6, size=1.5, x=1985, 
+           y=arthur_quantile["50%"], ymin=arthur_quantile["10%"], ymax=arthur_quantile["90%"]) +
+  annotate("text", label="Arthur's\nAdditions", x=1985, y=1685) +
+  annotate("text", label="Mellon Collection", x=1937, y=1678 , angle=90, hjust=0) +
+  annotate("text", label="Widener Collection", x=1942, y=1678 , angle=90, hjust=0)
+dev.off()
 
 svg("genres.svg", height=8, width=15)
 ggplot(collection_data, aes(genre, fill=set)) +
