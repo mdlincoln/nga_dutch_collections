@@ -28,9 +28,21 @@ collection_data$set[collection_data$acc_date >= 1976] <- "Wheelock"
 collection_data$set[collection_data$acc_date == NA] <- "Other"
 collection_data$set <- as.factor(collection_data$set)
 
+##### extract room number #####
+room_regex <- "room=([[:alpha:]]-[0-9]{3}[-]?[[:alpha:]]?)"
+collection_data$room <- str_match(collection_data$location, room_regex)[,2]
+collection_data$room[is.na(collection_data$room)] <- "Storage"
+collection_data$room <- as.factor(collection_data$room)
+
+collection_data %.% group_by(room) %.% mutate(area=height*width) %.% summarize(num=n(), avg.area=mean(area, na.rm=TRUE))
+
+
+
+# Creation date quantiles for pieces from the core collection (Mellon and Widener gifts)
 core_gift <- filter(collection_data, acc_date==1942 | acc_date==1937)
 core_quantile <- quantile(core_gift$creation_date, probs=seq(0,1,0.1), na.rm=TRUE)
 
+# Creation date quantiles for pieces acquried during Arthur's tenure (1976-present)
 arthur_ptgs <- filter(collection_data, acc_date >= 1974)
 arthur_quantile <- quantile(arthur_ptgs$creation_date, probs=seq(0,1,0.1), na.rm=TRUE)
 
