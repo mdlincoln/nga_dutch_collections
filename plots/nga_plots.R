@@ -59,3 +59,11 @@ ggplot(collection_data, aes(genre, fill=set)) +
   coord_flip() +
   theme_bw()
 dev.off()
+
+svg("room_facets.svg", height=8, width=15)
+ggplot(collection_data, aes(x=acc_date, y=creation_date, size=height*width)) +
+  geom_jitter(alpha=0.7) + 
+  scale_size(range=c(1,10)) +
+  facet_wrap(~ room) +
+  theme_bw()
+dev.off()
