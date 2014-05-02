@@ -75,3 +75,10 @@ ggplot(collection_data, aes(x=acc_date, y=creation_date, size=height*width)) +
   facet_wrap(~ room) +
   theme_bw()
 dev.off()
+
+svg("sizes.svg", height=8, width=15)
+ggplot(collection_data, aes(x=acc_date, y=height*width, color=creation_date)) +
+  geom_point(size=3) +
+  facet_wrap(~ genre) +
+  theme_bw()
+dev.off()
