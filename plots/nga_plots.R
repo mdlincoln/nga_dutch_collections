@@ -53,4 +53,9 @@ ggplot(collection_data, aes(x=acc_date, y=creation_date, color=medium, size=heig
   geom_vline(xintercept=1974) +
   annotate("rect", alpha=0.2, ymin=arthur_quantile["10%"], ymax=arthur_quantile["90%"], xmin=1974, xmax=2014)
 
-ggplot(filter(collection_data, medium %in% c("oil on canvas", "oil on panel")), aes(x=acc_date, y=height*width, color=medium)) + geom_point(shape=1) + geom_smooth()
+svg("genres.svg", height=8, width=15)
+ggplot(collection_data, aes(genre, fill=set)) +
+  geom_bar() +
+  coord_flip() +
+  theme_bw()
+dev.off()
