@@ -21,6 +21,13 @@ collection_data$creation_date <- as.numeric(str_match(collection_data$created, d
 acc_regex <- "([0-9]{4})[.]"
 collection_data$acc_date <- as.numeric(str_match(collection_data$accession, acc_regex)[,2])
 
+#### Collection set?
+collection_data$set[collection_data$acc_date == 1937] <- "Mellon"
+collection_data$set[collection_data$acc_date == 1942] <- "Widener"
+collection_data$set[collection_data$acc_date >= 1976] <- "Wheelock"
+collection_data$set[collection_data$acc_date == NA] <- "Other"
+collection_data$set <- as.factor(collection_data$set)
+
 core_gift <- filter(collection_data, acc_date==1942 | acc_date==1937)
 core_quantile <- quantile(core_gift$creation_date, probs=seq(0,1,0.1), na.rm=TRUE)
 
