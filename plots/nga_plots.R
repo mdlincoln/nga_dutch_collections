@@ -5,9 +5,11 @@ library("dplyr")
 collection_data <- read.csv("../collection_data.csv", stringsAsFactors=FALSE)
 collection_data$medium <- as.factor(collection_data$medium)
 collection_data$artist <- as.factor(collection_data$artist)
+collection_data$genre <- as.factor(collection_data$genre)
+collection_data$onview <- as.factor(collection_data$onview)
 
 ##### Extract hight and width measurements #####
-dim_regex <- "([0-9]{1,}[.]?[0-9]?) x ([0-9]{1,}[.]?[0-9]?)"
+dim_regex <- "([0-9]{1,}[.]?[0-9]?) [x×] ([0-9]{1,}[.]?[0-9]?)"
 collection_data$width <- as.numeric(str_match(collection_data$dimensions, dim_regex)[,2])
 collection_data$height <- as.numeric(str_match(collection_data$dimensions, dim_regex)[,3])
 
