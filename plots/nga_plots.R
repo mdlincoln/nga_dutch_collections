@@ -69,7 +69,7 @@ svg("genres.svg", height=8, width=15)
 ggplot(collection_data, aes(genre, fill=set)) +
   geom_bar() +
   coord_flip() +
-  theme_bw()
+  scale_fill_brewer(type="qual", palette = 6)
 dev.off()
 
 svg("room_facets.svg", height=8, width=15)
