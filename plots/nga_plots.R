@@ -40,6 +40,18 @@ collection_data$room <- as.factor(collection_data$room)
 
 collection_data %.% group_by(room) %.% mutate(area=height*width) %.% summarize(num=n(), avg.area=mean(area, na.rm=TRUE))
 
+collection_data$overview <- NULL
+collection_data$entry <- NULL
+collection_data$provenance <- NULL
+collection_data$inscription <- NULL
+collection_data$marks <- NULL
+collection_data$history <-NULL
+collection_data$bibliography <- NULL
+collection_data$consvNotes <- NULL
+collection_data$location <- NULL
+collection_data$dimensions <- NULL
+write.csv(collection_data, "../clean_colleciton.csv")
+
 
 
 # Creation date quantiles for pieces from the core collection (Mellon and Widener gifts)
