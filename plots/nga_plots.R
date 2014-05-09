@@ -102,5 +102,6 @@ svg("nga_sizes.svg", height=8, width=11)
 ggplot(collection_data, aes(x=area, y=creation_date, color=orientation)) +
   geom_point(size=3) +
   facet_wrap(~ set) +
-  theme_bw()
+  theme_bw() +
+  theme(legend.position="top")
 dev.off()
