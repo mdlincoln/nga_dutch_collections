@@ -88,18 +88,13 @@ ggplot(collection_data, aes(x=acc_date, y=creation_date, color=set)) +
 dev.off()
 
 svg("genres.svg", height=8, width=15)
-ggplot(collection_data, aes(genre, fill=set)) +
-  geom_bar() +
-  coord_flip() +
-  scale_fill_brewer(type="qual", palette = 6)
-dev.off()
-
-svg("room_facets.svg", height=8, width=15)
-ggplot(collection_data, aes(x=acc_date, y=creation_date, size=height*width)) +
-  geom_jitter(alpha=0.7) + 
-  scale_size(range=c(1,10)) +
-  facet_wrap(~ room) +
-  theme_bw()
+ggplot(collection_data, aes(set, fill=set)) +
+  facet_wrap(~ genre) +
+  geom_bar(position="dodge") +
+  scale_fill_brewer(type="qual", palette = 6) +
+  theme_bw() +
+  theme(legend.position="top") +
+  coord_flip()
 dev.off()
 
 svg("sizes.svg", height=8, width=15)
