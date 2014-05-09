@@ -2,7 +2,7 @@ library("ggplot2")
 library("stringr")
 library("dplyr")
 
-akw <- 1973
+akw <- 1975
 
 collection_data <- read.csv("../collection_data.csv", stringsAsFactors=FALSE)
 collection_data$medium <- as.factor(collection_data$medium)
