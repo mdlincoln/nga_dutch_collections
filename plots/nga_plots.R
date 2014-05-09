@@ -98,8 +98,8 @@ ggplot(collection_data, aes(set, fill=set)) +
 dev.off()
 
 svg("sizes.svg", height=8, width=15)
-ggplot(collection_data, aes(x=acc_date, y=height*width, color=creation_date)) +
+ggplot(collection_data, aes(x=area, y=creation_date, color=orientation)) +
   geom_point(size=3) +
-  facet_wrap(~ genre) +
+  facet_wrap(~ set) +
   theme_bw()
 dev.off()
