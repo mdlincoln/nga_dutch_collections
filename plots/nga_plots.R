@@ -104,7 +104,7 @@ ggplot(collection_data, aes(x=area, y=creation_date, color=orientation)) +
   geom_point(size=3) +
   facet_wrap(~ set) +
   theme_bw() +
-  theme(legend.position="top")
+  theme(legend.position="top") +
   xlab("Area (cm)") +
   ylab("Creation Date")
 dev.off()
