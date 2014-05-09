@@ -91,13 +91,13 @@ ggplot(collection_data, aes(x=acc_date, y=creation_date, color=set)) +
 dev.off()
 
 svg("nga_genres.svg", height=8, width=11)
-ggplot(collection_data, aes(set, fill=set)) +
-  facet_grid(~ genre) +
+ggplot(collection_data, aes(genre, fill=genre)) +
+  facet_wrap(~ set) +
   geom_bar(position="dodge") +
-  scale_fill_brewer(type="qual", palette = 6) +
+  scale_fill_brewer(type="qual", palette = 8) +
   theme_bw() +
   theme(legend.position="top") +
-  theme(axis.text.x=element_blank())
+  theme(axis.text.x=element_text(angle=45, hjust=1))
 dev.off()
 
 svg("nga_sizes.svg", height=8, width=11)
