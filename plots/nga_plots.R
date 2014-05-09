@@ -96,7 +96,8 @@ ggplot(collection_data, aes(set, fill=set)) +
   geom_bar(position="dodge") +
   scale_fill_brewer(type="qual", palette = 6) +
   theme_bw() +
-  theme(legend.position="top")
+  theme(legend.position="top") +
+  theme(axis.text.x=element_blank())
 dev.off()
 
 svg("nga_sizes.svg", height=8, width=11)
