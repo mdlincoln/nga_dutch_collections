@@ -72,7 +72,7 @@ core_quantile <- quantile(core_gift$creation_date, probs=seq(0,1,0.05), na.rm=TR
 arthur_ptgs <- filter(collection_data, acc_date >= akw)
 arthur_quantile <- quantile(arthur_ptgs$creation_date, probs=seq(0,1,0.05), na.rm=TRUE)
 
-svg("date_plot.svg", height=8, width=15)
+svg("nga_date_plot.svg", height=8, width=11)
 ggplot(collection_data, aes(x=acc_date, y=creation_date, color=set)) +
   geom_point(alpha=1, size=3) + 
   scale_color_brewer(type="qual", palette = 6) +
@@ -88,7 +88,7 @@ ggplot(collection_data, aes(x=acc_date, y=creation_date, color=set)) +
   theme(legend.position="top")
 dev.off()
 
-svg("genres.svg", height=8, width=15)
+svg("nga_genres.svg", height=8, width=11)
 ggplot(collection_data, aes(set, fill=set)) +
   facet_wrap(~ genre) +
   geom_bar(position="dodge") +
@@ -98,7 +98,7 @@ ggplot(collection_data, aes(set, fill=set)) +
   coord_flip()
 dev.off()
 
-svg("sizes.svg", height=8, width=15)
+svg("nga_sizes.svg", height=8, width=11)
 ggplot(collection_data, aes(x=area, y=creation_date, color=orientation)) +
   geom_point(size=3) +
   facet_wrap(~ set) +
