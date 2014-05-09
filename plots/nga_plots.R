@@ -38,19 +38,29 @@ collection_data$room <- str_match(collection_data$location, room_regex)[,2]
 collection_data$room[is.na(collection_data$room)] <- "Storage"
 collection_data$room <- as.factor(collection_data$room)
 
-collection_data %.% group_by(room) %.% mutate(area=height*width) %.% summarize(num=n(), avg.area=mean(area, na.rm=TRUE))
 
-collection_data$overview <- NULL
-collection_data$entry <- NULL
-collection_data$provenance <- NULL
-collection_data$inscription <- NULL
-collection_data$marks <- NULL
-collection_data$history <-NULL
-collection_data$bibliography <- NULL
-collection_data$consvNotes <- NULL
-collection_data$location <- NULL
-collection_data$dimensions <- NULL
-write.csv(collection_data, "../clean_colleciton.csv")
+##### area and orientation #####
+collection_data$area <- collection_data$height*collection_data$width
+collection_data$orientation[collection_data$height > collection_data$width] <- "portrait"
+collection_data$orientation[collection_data$height < collection_data$width] <- "landscape"
+collection_data$orientation[collection_data$height == collection_data$width] <- "square"
+
+
+
+##### Filter out unneeded information #####
+output <- collection_data
+output$overview <- NULL
+output$entry <- NULL
+output$provenance <- NULL
+output$inscription <- NULL
+output$marks <- NULL
+output$history <-NULL
+output$bibliography <- NULL
+output$consvNotes <- NULL
+output$location <- NULL
+output$dimensions <- NULL
+output$created <- NULL
+write.csv(output, "../clean_collection.csv")
 
 
 
