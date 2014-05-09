@@ -92,12 +92,11 @@ dev.off()
 
 svg("nga_genres.svg", height=8, width=11)
 ggplot(collection_data, aes(set, fill=set)) +
-  facet_wrap(~ genre) +
+  facet_grid(~ genre) +
   geom_bar(position="dodge") +
   scale_fill_brewer(type="qual", palette = 6) +
   theme_bw() +
-  theme(legend.position="top") +
-  coord_flip()
+  theme(legend.position="top")
 dev.off()
 
 svg("nga_sizes.svg", height=8, width=11)
