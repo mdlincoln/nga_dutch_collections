@@ -84,6 +84,8 @@ ggplot(collection_data, aes(x=acc_date, y=creation_date, color=set)) +
   annotate("text", label="Wheelock", x=1985, y=arthur_quantile["95%"]+3,angle=90,  hjust=0) +
   annotate("text", label="Mellon Collection", x=1937, y=1678 , angle=90, hjust=0) +
   annotate("text", label="Widener Collection", x=1942, y=1678 , angle=90, hjust=0) +
+  xlab("Acquisition Date") +
+  ylab("Creation Date") +
   theme_bw() +
   theme(legend.position="top")
 dev.off()
@@ -104,4 +106,6 @@ ggplot(collection_data, aes(x=area, y=creation_date, color=orientation)) +
   facet_wrap(~ set) +
   theme_bw() +
   theme(legend.position="top")
+  xlab("Area (cm)") +
+  ylab("Creation Date")
 dev.off()
