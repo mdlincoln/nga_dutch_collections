@@ -79,12 +79,13 @@ ggplot(collection_data, aes(x=acc_date, y=creation_date, color=set)) +
   annotate("pointrange", alpha=0.6, size=1.5, x=1950,
            y=core_quantile["50%"], ymin=core_quantile["5%"], ymax=core_quantile["95%"]) +
   annotate("text", label="Core", x=1950, y=core_quantile["95%"]+3, angle=90, hjust=0) +
-  geom_vline(xintercept=akw) +
   annotate("pointrange", alpha=0.6, size=1.5, x=1985, 
            y=arthur_quantile["50%"], ymin=arthur_quantile["5%"], ymax=arthur_quantile["95%"]) +
   annotate("text", label="Wheelock", x=1985, y=arthur_quantile["95%"]+3,angle=90,  hjust=0) +
   annotate("text", label="Mellon Collection", x=1937, y=1678 , angle=90, hjust=0) +
-  annotate("text", label="Widener Collection", x=1942, y=1678 , angle=90, hjust=0)
+  annotate("text", label="Widener Collection", x=1942, y=1678 , angle=90, hjust=0) +
+  theme_bw() +
+  theme(legend.position="top")
 dev.off()
 
 svg("genres.svg", height=8, width=15)
