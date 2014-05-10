@@ -91,46 +91,47 @@ def parse_file(path)
 
 
   ##### catalog entry #####
-
+  # Uncomment this section if you wish to parse all the catalog texts as well
+  #########################
   # overview
 
-  overview = parsed_html.at_css("#overview").content
-  object_data[:overview] = overview
+  # overview = parsed_html.at_css("#overview").content
+  # object_data[:overview] = overview
 
-  # entry
+  # # entry
 
-  entry = parsed_html.at_css("#entry").content
-  object_data[:entry] = entry
+  # entry = parsed_html.at_css("#entry").content
+  # object_data[:entry] = entry
 
-  # inscription
+  # # inscription
 
-  inscription = parsed_html.at_css("#inscription").content
-  object_data[:inscription] = inscription
+  # inscription = parsed_html.at_css("#inscription").content
+  # object_data[:inscription] = inscription
 
-  # marks
+  # # marks
 
-  marks = parsed_html.at_css("#marks").content
-  object_data[:marks] = marks
+  # marks = parsed_html.at_css("#marks").content
+  # object_data[:marks] = marks
 
-  # provenance
+  # # provenance
 
-  provenance = parsed_html.at_css("#provenance").content
-  object_data[:provenance] = provenance
+  # provenance = parsed_html.at_css("#provenance").content
+  # object_data[:provenance] = provenance
 
-  # history
+  # # history
 
-  history = parsed_html.at_css("#history").content
-  object_data[:history] = history
+  # history = parsed_html.at_css("#history").content
+  # object_data[:history] = history
 
-  # bibliography
+  # # bibliography
 
-  bibliography = parsed_html.at_css("#bibliography").content
-  object_data[:bibliography] = bibliography
+  # bibliography = parsed_html.at_css("#bibliography").content
+  # object_data[:bibliography] = bibliography
 
-  # consvNotes
+  # # consvNotes
 
-  consvNotes = parsed_html.at_css("#consvNotes").content
-  object_data[:consvNotes] = consvNotes
+  # consvNotes = parsed_html.at_css("#consvNotes").content
+  # object_data[:consvNotes] = consvNotes
 
   # Add genre
   object_data[:genre] = get_genre(accession)

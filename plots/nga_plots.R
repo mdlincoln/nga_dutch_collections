@@ -49,14 +49,6 @@ collection_data$orientation[collection_data$height == collection_data$width] <- 
 
 ##### Filter out unneeded information #####
 output <- collection_data
-output$overview <- NULL
-output$entry <- NULL
-output$provenance <- NULL
-output$inscription <- NULL
-output$marks <- NULL
-output$history <-NULL
-output$bibliography <- NULL
-output$consvNotes <- NULL
 output$location <- NULL
 output$dimensions <- NULL
 output$created <- NULL
