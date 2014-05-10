@@ -49,14 +49,6 @@ collection_data$orientation[collection_data$height == collection_data$width] <- 
 
 ##### Filter out unneeded information #####
 output <- collection_data
-output$overview <- NULL
-output$entry <- NULL
-output$provenance <- NULL
-output$inscription <- NULL
-output$marks <- NULL
-output$history <-NULL
-output$bibliography <- NULL
-output$consvNotes <- NULL
 output$location <- NULL
 output$dimensions <- NULL
 output$created <- NULL
@@ -75,7 +67,7 @@ arthur_quantile <- quantile(arthur_ptgs$creation_date, probs=seq(0,1,0.05), na.r
 svg("nga_date_plot.svg", height=8, width=11)
 ggplot(collection_data, aes(x=acc_date, y=creation_date, color=set)) +
   geom_point(alpha=1, size=3) + 
-  scale_color_brewer(type="qual", palette = 6) +
+  scale_color_brewer(type="div", palette = 8) +
   annotate("pointrange", alpha=0.6, size=1.5, x=1950,
            y=core_quantile["50%"], ymin=core_quantile["5%"], ymax=core_quantile["95%"]) +
   annotate("text", label="Core", x=1950, y=core_quantile["95%"]+3, angle=90, hjust=0) +
@@ -94,7 +86,7 @@ svg("nga_genres.svg", height=8, width=11)
 ggplot(collection_data, aes(genre, fill=genre)) +
   facet_wrap(~ set) +
   geom_bar(position="dodge") +
-  scale_fill_brewer(type="qual", palette = 8) +
+  scale_fill_brewer(type="div", palette = 8) +
   theme_bw() +
   theme(legend.position="top") +
   theme(axis.text.x=element_text(angle=45, hjust=1))
@@ -104,6 +96,7 @@ svg("nga_sizes.svg", height=8, width=11)
 ggplot(collection_data, aes(x=area, y=creation_date, color=orientation)) +
   geom_point(size=3) +
   facet_wrap(~ set) +
+  scale_color_manual(values=c("#CA1B1E", "#1B893F")) +
   theme_bw() +
   theme(legend.position="top") +
   xlab("Area (cm)") +
