@@ -93,12 +93,12 @@ ggplot(collection_data, aes(genre, fill=genre)) +
 dev.off()
 
 svg("nga_sizes.svg", height=8, width=11)
-ggplot(collection_data, aes(x=area, y=creation_date, color=orientation)) +
+ggplot(collection_data, aes(x=width, y=height, color=orientation)) +
   geom_point(size=3) +
   facet_wrap(~ set) +
   scale_color_manual(values=c("#CA1B1E", "#1B893F")) +
   theme_bw() +
   theme(legend.position="top") +
-  xlab("Area (cm)") +
-  ylab("Creation Date")
+  xlab("Width (cm)") +
+  ylab("Height (cm)")
 dev.off()
