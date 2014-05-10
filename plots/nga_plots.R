@@ -25,7 +25,7 @@ collection_data$acc_date <- as.numeric(str_match(collection_data$accession, acc_
 
 #### Collection set?
 collection_data$set <- "Other"
-collection_data$set[collection_data$acc_date == 1937] <- "Mellon"
+collection_data$set[collection_data$acc_date == 1937 | collection_data$acc_date == 1940] <- "Mellon"
 collection_data$set[collection_data$acc_date == 1942] <- "Widener"
 collection_data$set[collection_data$acc_date >= akw] <- "Wheelock"
 collection_data$set <- as.factor(collection_data$set)
@@ -57,7 +57,7 @@ write.csv(output, "../clean_collection.csv")
 
 
 # Creation date quantiles for pieces from the core collection (Mellon and Widener gifts)
-core_gift <- filter(collection_data, acc_date==1942 | acc_date==1937)
+core_gift <- filter(collection_data, acc_date==1942 | acc_date==1937 | acc_date==1940)
 core_quantile <- quantile(core_gift$creation_date, probs=seq(0,1,0.05), na.rm=TRUE)
 
 # Creation date quantiles for pieces acquried during Arthur's tenure (1976-present)
