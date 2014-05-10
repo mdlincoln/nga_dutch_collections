@@ -1,6 +1,8 @@
 require "nokogiri"
 require "yaml"
 
+
+# I have manually defined genres for each painting in a YAML file
 $genres = YAML.load_file("scrape/genres.yaml")
 
 def import_objects(filelist)
@@ -133,7 +135,7 @@ def parse_file(path)
   # consvNotes = parsed_html.at_css("#consvNotes").content
   # object_data[:consvNotes] = consvNotes
 
-  # Add genre
+  ##### Add genre ###### 
   object_data[:genre] = get_genre(accession)
 
   # Return object_data hash
