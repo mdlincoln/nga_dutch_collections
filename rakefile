@@ -12,6 +12,7 @@ JSONFILES = HTMLFILES.ext(".json")
 
 task :default => [:retrieve, :convert, :write]
 
+desc "Scrape all the Dutch syscat entries from nga.gov"
 task :retrieve => "scrape/html" do
   # Get all object links
   links = object_url_list("#{BASEURL}#{SYSCAT}")
@@ -25,6 +26,7 @@ task :retrieve => "scrape/html" do
   end
 end
 
+# This ruleset will parse each html file into a JSON file
 task :convert => JSONFILES
 
 rule ".json" => ".html" do |t|
@@ -36,6 +38,7 @@ end
 
 directory "scrape/html"
 
+desc "Create a raw csv file with all the information stored in JSON files"
 task :write do
   collection_to_csv(JSONFILES, "collection_data.csv")
 end
